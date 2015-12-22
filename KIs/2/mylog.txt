@@ -1,0 +1,20 @@
+Warning: c:/users/anon/documents/github/laskaki/old_2014/laska.pl:300:
+	Singleton variables: [Startfolge]
+Warning: c:/users/anon/documents/github/laskaki/old_2014/laska.pl:305:
+	Singleton variables: [Startfolge]
+Warning: c:/users/anon/documents/github/laskaki/old_2014/laska.pl:319:
+	Singleton variables: [Farbe]
+Warning: c:/users/anon/documents/github/laskaki/old_2014/laska.pl:322:
+	Singleton variables: [Farbe]
+Welcome to SWI-Prolog (Multi-threaded, 64 bits, Version 7.2.3)
+Copyright (c) 1990-2015 University of Amsterdam, VU Amsterdam
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software,
+and you are welcome to redistribute it under certain conditions.
+Please visit http://www.swi-prolog.org for details.
+
+For help, use ?- help(Topic). or ?- apropos(Word).
+
+1 ?- 
+
+[32m% halt
+[0m
