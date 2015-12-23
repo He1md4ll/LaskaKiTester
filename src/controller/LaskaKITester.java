@@ -1,3 +1,6 @@
+package controller;
+import staticUtils.FieldCoordinateRotator;
+
 public class LaskaKITester {
 
 	final static String SWIPL_LOCATION = "C:\\Program Files\\swipl\\bin\\swipl.exe";

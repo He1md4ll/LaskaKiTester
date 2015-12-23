@@ -1,3 +1,4 @@
+package staticUtils;
 import java.util.logging.Logger;
 
 /**
@@ -51,6 +52,7 @@ public class FieldCoordinateRotator {
 		
 		if (rotatedCoordinates.length > 4){
 			int thirdNum = rotatedCoordinates[5]-48;
+			thirdNum = -thirdNum+8;
 			char thirdChar = rotatedCoordinates[4];
 			thirdChar = (char) ((-(thirdChar-96) + 8)+96);
 			log.info("Transforming " + coordinates +" into " + firstChar+""+firstNum+""+secondChar+""+secondNum+""+thirdChar+""+thirdNum);

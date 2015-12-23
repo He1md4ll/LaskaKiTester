@@ -1,4 +1,8 @@
+package controller;
 import java.io.IOException;
+
+import processIO.ProcessReader;
+import processIO.ProcessWriter;
 
 /**
  * Class to control the field of one KI.
