@@ -27,7 +27,7 @@ public class ProcessReader extends Thread {
         try {
             while ((line = reader.readLine()) != null) {
             	//Uncomment this to see raw process output
-                System.out.println(line);
+                //System.out.println(line);
                 if (line.contains(KI_ACTION_STRING)){
                 	aiAction = line.substring(POSITION_KI_ACTION_STRING_STARTS);
                 	actionChanged = true;

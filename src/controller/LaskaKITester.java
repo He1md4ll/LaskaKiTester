@@ -11,7 +11,6 @@ public class LaskaKITester {
 		
 		
 		//Example of running two process with two AIs
-		//TODO: Bug when there is a general (no AI-Action is detected)
 		
 		MoveController mc1 = new MoveController(SWIPL_LOCATION, SWIPL_PARAMETERS, "weiss");
 		MoveController mc2 = new MoveController(SWIPL_LOCATION, SWIPL_PARAMETERS1, "schwarz");
