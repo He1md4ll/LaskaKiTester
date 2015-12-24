@@ -11,10 +11,11 @@ import java.io.InputStreamReader;
 public class ProcessReader extends Thread {
 	
 	private final String KI_ACTION_STRING = "KI -> "; // String to look for when parsing ki Action
-	private final int POSITION_KI_ACTION_STRING_STARTS = 6; // Position where the actual action starts. you need to adjust this according to KI_ACTION_STRING
+	private final String KI_CALC_TIME_STRING = "Zeit in MilliSekunden:";
 	
 	private String aiAction;
 	private boolean actionChanged = false;
+	private String totalCalcTime;
 
     private BufferedReader reader = null;
     public ProcessReader(Process process) {
@@ -29,8 +30,10 @@ public class ProcessReader extends Thread {
             	//Uncomment this to see raw process output
                 //System.out.println(line);
                 if (line.contains(KI_ACTION_STRING)){
-                	aiAction = line.substring(POSITION_KI_ACTION_STRING_STARTS);
+                	aiAction = line.substring(KI_ACTION_STRING.length());
                 	actionChanged = true;
+                } else if (line.contains(KI_CALC_TIME_STRING)){
+                	totalCalcTime = line.substring(KI_CALC_TIME_STRING.length());
                 }
             }
         }
@@ -56,5 +59,9 @@ public class ProcessReader extends Thread {
 		}
 		actionChanged = false;
 		return this.aiAction;
+    }
+    
+    public String getTotalCalcTime(){
+    	return this.totalCalcTime;
     }
 }
