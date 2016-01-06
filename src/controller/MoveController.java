@@ -18,6 +18,7 @@ public class MoveController {
 	private ProcessWriter writer;
 	private String color; 	// weiss = zuerst dran
 							// schwarz = danach dran
+	private boolean win;
 	
 	/**
 	 * 
@@ -64,7 +65,17 @@ public class MoveController {
 		
 	}
 	
-	//process.destroy();
+	public int getTotalCalcTime(){
+		return Integer.parseInt(reader.getTotalCalcTime());
+	}
+	
+	public boolean isWin(){
+		return reader.isWin();
+	}
+	
+	public void stopGame(){
+		process.destroy();
+	}
 	
 	
 }

@@ -12,10 +12,13 @@ public class ProcessReader extends Thread {
 	
 	private final String KI_ACTION_STRING = "KI -> "; // String to look for when parsing ki Action
 	private final String KI_CALC_TIME_STRING = "Zeit in MilliSekunden:";
+	private final String KI_WIN_STRING = "% Execution Aborted";
+	private final String KI_LOST_STRING = "...";
 	
 	private String aiAction;
 	private boolean actionChanged = false;
-	private String totalCalcTime;
+	private String totalCalcTime = "0";
+	private boolean win;
 
     private BufferedReader reader = null;
     public ProcessReader(Process process) {
@@ -28,13 +31,18 @@ public class ProcessReader extends Thread {
         try {
             while ((line = reader.readLine()) != null) {
             	//Uncomment this to see raw process output
-                //System.out.println(line);
+                System.out.println(line);
                 if (line.contains(KI_ACTION_STRING)){
                 	aiAction = line.substring(KI_ACTION_STRING.length());
                 	actionChanged = true;
                 } else if (line.contains(KI_CALC_TIME_STRING)){
                 	totalCalcTime = line.substring(KI_CALC_TIME_STRING.length());
-                }
+                } else if (line.contains(KI_WIN_STRING)){
+                	//TODO: fixen wenn KI richtig reagiert
+                	//im moment rastet die ja mit 'execution aborted' aus
+                	win = true;
+                	actionChanged = true;
+                }                
             }
         }
         catch(IOException exception) {
@@ -63,5 +71,9 @@ public class ProcessReader extends Thread {
     
     public String getTotalCalcTime(){
     	return this.totalCalcTime;
+    }
+    
+    public boolean isWin(){
+    	return this.win;
     }
 }
