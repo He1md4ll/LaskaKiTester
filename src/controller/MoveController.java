@@ -34,7 +34,7 @@ public class MoveController {
 		this.color = color;
 		try {
 			process = Runtime.getRuntime().exec(swiplLocation + swiplParameters);
-			reader = new ProcessReader(process);
+			reader = new ProcessReader(process, color);
 			writer = new ProcessWriter(process);
 			reader.start();
 		} catch (IOException e) {

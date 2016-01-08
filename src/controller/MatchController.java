@@ -34,8 +34,8 @@ public class MatchController extends Thread{
 	public String play(){
 		//Example of running two process with two AIs
 		
-				MoveController mc1 = new MoveController(swiplLocation, ai1, "weiss");
-				MoveController mc2 = new MoveController(swiplLocation, ai2, "schwarz");
+				MoveController mc1 = new MoveController(swiplLocation, ai1, "black");
+				MoveController mc2 = new MoveController(swiplLocation, ai2, "white");
 				
 				String ai1Action;
 				String ai2Action;
@@ -54,7 +54,7 @@ public class MatchController extends Thread{
 						mc2.stopGame();
 						return ai1;
 					}
-					mc2.move(FieldCoordinateRotator.rotateCoordinates(ai1Action));
+					mc2.move(ai1Action);
 					System.out.println("------------------------------------------------");
 					ai2Action = mc2.getAiAction();
 					if (mc2.getTotalCalcTime() > 300*1000){ // Timeout for AI -> lost
@@ -68,7 +68,7 @@ public class MatchController extends Thread{
 						mc2.stopGame();
 						return ai2;
 					}
-					mc1.move(FieldCoordinateRotator.rotateCoordinates(ai2Action));
+					mc1.move(ai2Action);
 					System.out.println("------------------------------------------------");
 				}
 	}

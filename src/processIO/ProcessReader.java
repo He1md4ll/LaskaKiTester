@@ -10,19 +10,20 @@ import java.io.InputStreamReader;
  */
 public class ProcessReader extends Thread {
 	
-	private final String KI_ACTION_STRING = "KI -> "; // String to look for when parsing ki Action
+	private final String KI_ACTION_STRING = " am Zug:"; // String to look for when parsing ki Action
 	private final String KI_CALC_TIME_STRING = "Zeit in MilliSekunden:";
-	private final String KI_WIN_STRING = "% Execution Aborted";
-	private final String KI_LOST_STRING = "...";
+	private final String KI_WIN_STRING = "wins";
 	
 	private String aiAction;
 	private boolean actionChanged = false;
 	private String totalCalcTime = "0";
 	private boolean win;
+	private String color;
 
     private BufferedReader reader = null;
-    public ProcessReader(Process process) {
+    public ProcessReader(Process process, String color) {
         this.reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        this.color = color;
     }
 
     @Override
@@ -32,9 +33,12 @@ public class ProcessReader extends Thread {
             while ((line = reader.readLine()) != null) {
             	//Uncomment this to see raw process output
                 System.out.println(line);
-                if (line.contains(KI_ACTION_STRING)){
-                	aiAction = line.substring(KI_ACTION_STRING.length());
-                	actionChanged = true;
+                if (line.contains(color.toLowerCase() + KI_ACTION_STRING)){
+                	aiAction = line.substring(line.length()-4);
+                	
+                	if (aiAction.matches("\\w\\d\\w\\d")) {
+                		actionChanged = true;
+                	}
                 } else if (line.contains(KI_CALC_TIME_STRING)){
                 	totalCalcTime = line.substring(KI_CALC_TIME_STRING.length());
                 } else if (line.contains(KI_WIN_STRING)){
@@ -56,10 +60,8 @@ public class ProcessReader extends Thread {
      */
     public String getAiAction(){
     	try {
-    		Thread.sleep(2000);
     		while(!actionChanged){
-    		
-				Thread.sleep(100);
+				Thread.sleep(1000);
     		}
     	} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
