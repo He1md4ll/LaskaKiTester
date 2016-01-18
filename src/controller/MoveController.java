@@ -18,7 +18,6 @@ public class MoveController {
 	private ProcessWriter writer;
 	private String color; 	// weiss = zuerst dran
 							// schwarz = danach dran
-	private boolean win;
 	
 	/**
 	 * 
@@ -33,7 +32,7 @@ public class MoveController {
 	public MoveController(String swiplLocation, String swiplParameters, String color){
 		this.color = color;
 		try {
-			process = Runtime.getRuntime().exec(swiplLocation + swiplParameters);
+			process = Runtime.getRuntime().exec(swiplLocation + swiplParameters + " -t start(" + color + ")");
 			reader = new ProcessReader(process, color);
 			writer = new ProcessWriter(process);
 			reader.start();
@@ -70,7 +69,21 @@ public class MoveController {
 	}
 	
 	public boolean isWin(){
-		return reader.isWin();
+		if (reader.isWin()){
+			System.out.println("Player with color " + color + " wins!");
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean isLost(){
+		if (reader.isLost()){
+			System.out.println("Player with color " + color + " lost!");
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public void stopGame(){

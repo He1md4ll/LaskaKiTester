@@ -1,6 +1,7 @@
 package controller;
 
-import staticUtils.FieldCoordinateRotator;
+import entities.Player;
+import entities.PlayerList;
 
 /**
  * Class to one match bewteen two players.
@@ -12,30 +13,54 @@ import staticUtils.FieldCoordinateRotator;
 public class MatchController extends Thread{
 
 	private String swiplLocation;
-	private String ai1;
-	private String ai2;
+	private Player ai1;
+	private Player ai2;
 	
-	public MatchController(String swiplLocation, String ai1, String ai2){
+	private final int TIMEOUT = 300*100;
+	
+	public static int currentMatches = 0;
+	
+	private int round = 0;
+	
+	public MatchController(String swiplLocation, Player ai1, Player ai2){
 		this.swiplLocation = swiplLocation;
 		this.ai1 = ai1;
 		this.ai2 = ai2;
-		
+		currentMatches ++;
 	}
 	
 	@Override
     public void run() {
-		play();
+		Player winner = play();
+		Player winne1 = play();
+		if (winner.getId().equals(winne1.getId())){
+			System.out.println("Player with parameters " + winner + " won!");
+			PlayerList.addPoints(winner.getId());
+			currentMatches--;
+		} else {
+			Player winner3 = play();
+			System.out.println("Player with parameters " + winner3 + " won!");
+			PlayerList.addPoints(winner.getId());
+			currentMatches--;
+		}
 	}
 	
 	/**
 	 * 
 	 * @return returns the String to winning AI
 	 */
-	public String play(){
+	public Player play(){
 		//Example of running two process with two AIs
-		
-				MoveController mc1 = new MoveController(swiplLocation, ai1, "black");
-				MoveController mc2 = new MoveController(swiplLocation, ai2, "white");
+		round ++;
+		MoveController mc1;
+		MoveController mc2;
+			if (round % 2 == 1){
+				mc1 = new MoveController(swiplLocation, ai1.getParameters(), "black");
+				mc2 = new MoveController(swiplLocation, ai2.getParameters(), "white");
+			} else {
+				mc1 = new MoveController(swiplLocation, ai2.getParameters(), "black");
+				mc2 = new MoveController(swiplLocation, ai1.getParameters(), "white");
+			}
 				
 				String ai1Action;
 				String ai2Action;
@@ -43,7 +68,7 @@ public class MatchController extends Thread{
 				
 				while (true){
 					ai1Action = mc1.getAiAction();
-					if (mc1.getTotalCalcTime() > 300*1000){ // Timeout for AI -> lost
+					if (mc1.getTotalCalcTime() > TIMEOUT || mc2.isWin()){ // Timeout for AI -> lost
 						System.out.println("AI1 lost match");
 						mc1.stopGame();
 						mc2.stopGame();
@@ -57,7 +82,7 @@ public class MatchController extends Thread{
 					mc2.move(ai1Action);
 					System.out.println("------------------------------------------------");
 					ai2Action = mc2.getAiAction();
-					if (mc2.getTotalCalcTime() > 300*1000){ // Timeout for AI -> lost
+					if (mc2.getTotalCalcTime() > TIMEOUT  || mc1.isWin()){ // Timeout for AI -> lost
 						System.out.println("AI1 lost match");
 						mc1.stopGame();
 						mc2.stopGame();

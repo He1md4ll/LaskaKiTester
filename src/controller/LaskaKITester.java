@@ -1,24 +1,26 @@
 package controller;
 
+import entities.Player;
+
 public class LaskaKITester {
 
 	final static String SWIPL_LOCATION = "C:\\Program Files\\swipl\\bin\\swipl.exe";
-	final static String SWIPL_PARAMETERS_AI1 = " -s .\\LaskaKI\\2015\\main.pl -t start(black)";
-	final static String SWIPL_PARAMETERS_AI2 = " -s .\\LaskaKI\\2015\\main.pl -t start(white)";
+	//final static String SWIPL_PARAMETERS_AI1 = " -s .\\LaskaKI\\2015\\main.pl -t start(black)";
+	final static String SWIPL_PARAMETERS_AI1 = " -s .\\LaskaKI\\2015\\main.pl";
+	final static String SWIPL_PARAMETERS_AI2 = " -s .\\LaskaKI\\2015\\main.pl";
 	
 	public static void main(String[] args) {
 		
+		TournamentController tc = new TournamentController(SWIPL_LOCATION);
 		
-		MatchController matchController = new MatchController(SWIPL_LOCATION, SWIPL_PARAMETERS_AI1, SWIPL_PARAMETERS_AI2);
-		matchController.start();
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI2));
+		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1));
+		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1));
 		
-		//MoveController mc = new MoveController(SWIPL_LOCATION, SWIPL_PARAMETERS_AI2, "white");
-		//mc.move("e2d3");
+		tc.startTournament();
 		
-		
-		//Test if two matches can run parallel
-		//MatchController matchController1 = new MatchController(SWIPL_LOCATION, SWIPL_PARAMETERS_AI1, SWIPL_PARAMETERS_AI2);
-		//matchController1.start();
+		tc.printRanking();
 		
 	}
 

@@ -18,6 +18,7 @@ public class ProcessReader extends Thread {
 	private boolean actionChanged = false;
 	private String totalCalcTime = "0";
 	private boolean win;
+	private boolean lost;
 	private String color;
 
     private BufferedReader reader = null;
@@ -32,7 +33,7 @@ public class ProcessReader extends Thread {
         try {
             while ((line = reader.readLine()) != null) {
             	//Uncomment this to see raw process output
-                System.out.println(line);
+                //System.out.println(line);
                 if (line.contains(color.toLowerCase() + KI_ACTION_STRING)){
                 	aiAction = line.substring(line.length()-4);
                 	
@@ -42,10 +43,12 @@ public class ProcessReader extends Thread {
                 } else if (line.contains(KI_CALC_TIME_STRING)){
                 	totalCalcTime = line.substring(KI_CALC_TIME_STRING.length());
                 } else if (line.contains(KI_WIN_STRING)){
-                	//TODO: fixen wenn KI richtig reagiert
-                	//im moment rastet die ja mit 'execution aborted' aus
-                	win = true;
-                	actionChanged = true;
+                	if (line.toLowerCase().contains(color + KI_WIN_STRING)){
+                		win = true;
+                		actionChanged = true;
+                	} else {
+                		actionChanged = true;
+                	}
                 }                
             }
         }
@@ -77,5 +80,9 @@ public class ProcessReader extends Thread {
     
     public boolean isWin(){
     	return this.win;
+    }
+    
+    public boolean isLost(){
+    	return this.lost;
     }
 }

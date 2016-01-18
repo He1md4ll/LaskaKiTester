@@ -29,8 +29,7 @@ public class ProcessWriter {
 		try {
 			writer.write(gameAction+".\n");
 			writer.flush();
-			log.info("Wrote action " + gameAction + " to other process");
-			
+			//log.info("Wrote action " + gameAction + " to other process");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
