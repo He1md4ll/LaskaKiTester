@@ -45,7 +45,7 @@ public class TournamentController {
 			}
 		}
 		for (Map.Entry<String,Player> a:PlayerList.getPlayerList().entrySet()){
-			System.out.println("Player " + a.getKey() + " scored " + a.getValue().getScore() + " points!");
+			System.out.println("Player " + a.getKey() + " scored " + a.getValue().getScore() + " points!" + "Parameters: " + a.getValue().getParameters());
 		}
 	}
 }
