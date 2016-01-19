@@ -16,7 +16,7 @@ public class MatchController extends Thread{
 	private Player ai1;
 	private Player ai2;
 	
-	private final int TIMEOUT = 300*100;
+	private final int TIMEOUT = 300*1000;
 	
 	public static int currentMatches = 0;
 	
@@ -83,12 +83,12 @@ public class MatchController extends Thread{
 					System.out.println("------------------------------------------------");
 					ai2Action = mc2.getAiAction();
 					if (mc2.getTotalCalcTime() > TIMEOUT  || mc1.isWin()){ // Timeout for AI -> lost
-						System.out.println("AI1 lost match");
+						System.out.println("AI2 lost match");
 						mc1.stopGame();
 						mc2.stopGame();
 						return ai1;
 					} else if (mc2.isWin()){ // Text output wins
-						System.out.println("AI1 wins match");
+						System.out.println("AI2 wins match");
 						mc1.stopGame();
 						mc2.stopGame();
 						return ai2;
