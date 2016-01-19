@@ -13,7 +13,7 @@ public class LaskaKITester {
 		
 		TournamentController tc = new TournamentController(SWIPL_LOCATION);
 		
-		tc.addAi(new Player(SWIPL_PARAMETERS_AI2));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1));
 		tc.addAi(new Player(SWIPL_PARAMETERS_AI2));
 		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1));
 		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1));
