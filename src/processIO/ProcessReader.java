@@ -43,7 +43,7 @@ public class ProcessReader extends Thread {
                 } else if (line.contains(KI_CALC_TIME_STRING)){
                 	totalCalcTime = line.substring(KI_CALC_TIME_STRING.length());
                 } else if (line.contains(KI_WIN_STRING)){
-                	if (line.toLowerCase().contains(color + KI_WIN_STRING)){
+                	if (line.toLowerCase().contains(color + " " + KI_WIN_STRING)){
                 		win = true;
                 		actionChanged = true;
                 	} else {
