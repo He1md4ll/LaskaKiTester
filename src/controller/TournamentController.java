@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import entities.Game;
@@ -18,9 +17,11 @@ import entities.PlayerList;
 public class TournamentController {
 	
 	private String swiplLocation;
+	private ArrayList<MatchController> matches;
 	
 	public TournamentController(String swiplLocation){
 		this.swiplLocation = swiplLocation;
+		matches = new ArrayList<>();
 	}
 	
 	public void addAi(Player ai){
@@ -32,6 +33,7 @@ public class TournamentController {
 			for (Map.Entry<String,Player> b:PlayerList.getPlayerList().entrySet()){
 				if (!a.getKey().equals(b.getKey()) && !PlayerList.hasPlayerDoneAllMatches(b.getKey())){
 					MatchController mc = new MatchController(swiplLocation, a.getValue(), b.getValue());
+					matches.add(mc);
 					mc.start();
 				}
 			}
@@ -40,14 +42,15 @@ public class TournamentController {
 	}
 	
 	public void printRanking(){
-		while (MatchController.currentMatches > 0){
+		do{
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		}while(MatchController.runningMatches > 0);
+		
 		System.out.println();
 		for (Map.Entry<String,Player> a:PlayerList.getPlayerList().entrySet()){
 			Player player = a.getValue();
@@ -69,6 +72,12 @@ public class TournamentController {
 				}
 				System.out.println("\t first game time: " + calcTime + "ms.\t Winner was player " + game.getWinnerAi().getId());
 			}
+		}
+	}
+	
+	public void stopGame(){
+		for (MatchController mc:matches){
+			mc.stopGame();
 		}
 	}
 }
