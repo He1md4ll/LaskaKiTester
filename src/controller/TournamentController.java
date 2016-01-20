@@ -45,7 +45,15 @@ public class TournamentController {
 			}
 		}
 		for (Map.Entry<String,Player> a:PlayerList.getPlayerList().entrySet()){
-			System.out.println("Player " + a.getKey() + " scored " + a.getValue().getScore() + " points! " + "Parameters: " + a.getValue().getParameters());
+			Player player = a.getValue();
+			System.out.println("Player " + a.getKey() + " scored " + player.getScore() + " points! " + "Parameters: " + player.getParameters() 
+				+ "SV: " + player.getSv()
+				+ " GV: " + player.getGv()
+				+ " JSV: " + player.getJsv()
+				+ " JJSV: " + player.getJjsv()
+				+ " MV: " + player.getMv()
+				+ " JV: " + player.getJv()
+				+ " DV: " + player.getDv());
 		}
 	}
 }
