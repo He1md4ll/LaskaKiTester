@@ -36,7 +36,7 @@ public class MatchController extends Thread{
 		do{
 			try {
 				//Sleep till a slot is free for another match
-				Thread.sleep(1000);
+				Thread.sleep((long) (100 + Math.random() * 1000));
 			} catch (InterruptedException e) {}
 		}while(runningMatches >= LaskaKITester.MAX_MATCHES);
 		
