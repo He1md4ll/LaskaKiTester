@@ -13,8 +13,11 @@ public class LaskaKITester {
 		
 		TournamentController tc = new TournamentController(SWIPL_LOCATION);
 		
-		tc.addAi(new Player(SWIPL_PARAMETERS_AI1));
-		tc.addAi(new Player(SWIPL_PARAMETERS_AI2));
+		// 					Parameter, 			  SV, GV, JSV,JJSV,MV,JV,DV
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 35, 100, 10, 5, 1, 1, 10));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 35, 100, 10, 10, 0, 0, 50));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 35, 100, 0, 0, 0, 0, 0));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 35, 100, 10, 5, 1, 5, 5));
 		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1));
 		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1));
 		
