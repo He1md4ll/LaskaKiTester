@@ -21,7 +21,9 @@ public class Player {
 		this.id = UUID.randomUUID().toString();
 	}
 	
-	public Player(int sv, int gv, int jsv, int jjsv, int mv, int jv, int dv){
+	public Player(String parameters, int sv, int gv, int jsv, int jjsv, int mv, int jv, int dv){
+		this.parameters = parameters;
+		this.id = UUID.randomUUID().toString();
 		this.sv = sv;
 		this.gv = gv;
 		this.jsv = jsv;
