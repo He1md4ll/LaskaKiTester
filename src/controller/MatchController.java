@@ -16,7 +16,7 @@ public class MatchController extends Thread{
 	private Player ai1;
 	private Player ai2;
 	
-	private final int TIMEOUT = 300*10;
+	private final int TIMEOUT = 300*1000;
 	
 	public static int currentMatches = 0;
 	
