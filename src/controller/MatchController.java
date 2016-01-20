@@ -34,12 +34,12 @@ public class MatchController extends Thread{
 		Player winner = play();
 		Player winne1 = play();
 		if (winner.getId().equals(winne1.getId())){
-			System.out.println("Player with parameters " + winner + " won!");
+			System.out.println("Player with parameters " + winner.getParameters() + " won!");
 			PlayerList.addPoints(winner.getId());
 			currentMatches--;
 		} else {
 			Player winner3 = play();
-			System.out.println("Player with parameters " + winner3 + " won!");
+			System.out.println("Player with parameters " + winner3.getParameters() + " won!");
 			PlayerList.addPoints(winner.getId());
 			currentMatches--;
 		}
@@ -55,11 +55,11 @@ public class MatchController extends Thread{
 		MoveController mc1;
 		MoveController mc2;
 			if (round % 2 == 1){
-				mc1 = new MoveController(swiplLocation, ai1.getParameters(), "black");
-				mc2 = new MoveController(swiplLocation, ai2.getParameters(), "white");
+				mc1 = new MoveController(swiplLocation, ai1, "black");
+				mc2 = new MoveController(swiplLocation, ai2, "white");
 			} else {
-				mc1 = new MoveController(swiplLocation, ai2.getParameters(), "black");
-				mc2 = new MoveController(swiplLocation, ai1.getParameters(), "white");
+				mc1 = new MoveController(swiplLocation, ai2, "black");
+				mc2 = new MoveController(swiplLocation, ai1, "white");
 			}
 				
 				String ai1Action;

@@ -22,6 +22,11 @@ public class LaskaKITester {
 		
 		tc.printRanking();
 		
+		//TODO:
+		//Swipl beenden bei shutdown
+		//tournament statistik erweitern um parameter/file und timeout loses
+		//win/loss erkennen
+		
 	}
 
 }

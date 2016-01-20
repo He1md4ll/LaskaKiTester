@@ -1,6 +1,7 @@
 package controller;
 import java.io.IOException;
 
+import entities.Player;
 import processIO.ProcessReader;
 import processIO.ProcessWriter;
 
@@ -29,10 +30,15 @@ public class MoveController {
 	 * -t stands for the start-method
 	 * @param color color of the player, just used for loging
 	 */
-	public MoveController(String swiplLocation, String swiplParameters, String color){
+	public MoveController(String swiplLocation, Player ai, String color){
 		this.color = color;
-		try {
-			process = Runtime.getRuntime().exec(swiplLocation + swiplParameters + " -t start(" + color + ")");
+		try {			
+			
+			if (ai.isStartedWithParas()){
+				process = Runtime.getRuntime().exec(swiplLocation + ai.getParameters() + " -t start(" + color + "," + ai.getSv() + "," + ai.getGv() + "," + ai.getJsv() + "," + ai.getJjsv() + "," + ai.getMv() + "," + ai.getJv() + "," + ai.getDv() +")");
+			}else {
+				process = Runtime.getRuntime().exec(swiplLocation + ai.getParameters() + " -t start(" + color + ")");
+			}
 			reader = new ProcessReader(process, color);
 			writer = new ProcessWriter(process);
 			reader.start();

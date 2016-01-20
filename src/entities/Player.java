@@ -7,9 +7,33 @@ public class Player {
 	private int score = 0;
 	private String id;
 	
+	private int sv;
+	private int gv;
+	private int jsv;
+	private int jjsv;
+	private int mv;
+	private int jv;
+	private int dv;
+	private boolean startedWithParas = false;
+	
 	public Player(String parameters){
 		this.parameters = parameters;
 		this.id = UUID.randomUUID().toString();
+	}
+	
+	public Player(int sv, int gv, int jsv, int jjsv, int mv, int jv, int dv){
+		this.sv = sv;
+		this.gv = gv;
+		this.jsv = jsv;
+		this.jjsv = jjsv;
+		this.mv = mv;
+		this.jv = jv;
+		this.dv = dv;
+		this.startedWithParas = true;
+	}
+	
+	public Player(){
+		
 	}
 	
 	public String getParameters(){
@@ -30,5 +54,49 @@ public class Player {
 	
 	public String getId(){
 		return this.id;
+	}
+
+	public int getMv() {
+		return mv;
+	}
+
+	public void setMv(int mv) {
+		this.mv = mv;
+	}
+
+	public int getJv() {
+		return jv;
+	}
+
+	public void setJv(int jv) {
+		this.jv = jv;
+	}
+
+	public int getSv() {
+		return sv;
+	}
+
+	public int getGv() {
+		return gv;
+	}
+
+	public int getJsv() {
+		return jsv;
+	}
+
+	public int getJjsv() {
+		return jjsv;
+	}
+
+	public int getDv() {
+		return dv;
+	}
+
+	public boolean isStartedWithParas() {
+		return startedWithParas;
+	}
+
+	public void setStartedWithParas(boolean startedWithParas) {
+		this.startedWithParas = startedWithParas;
 	}
 }
