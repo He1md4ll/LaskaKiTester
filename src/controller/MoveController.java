@@ -68,7 +68,7 @@ public class MoveController {
 		
 		String aiAction = reader.getAiAction();
 		
-		System.out.println("Player with color " + color + "moved " + aiAction + ". Total calculation time: " + reader.getTotalCalcTime());
+		System.out.println("Player " + ai.getId() + " moved " + aiAction + ". Total calculation time: " + reader.getTotalCalcTime());
 		
 		return aiAction;
 		
