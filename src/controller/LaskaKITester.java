@@ -13,8 +13,10 @@ public class LaskaKITester {
 		
 		TournamentController tc = new TournamentController(SWIPL_LOCATION);
 		
-		tc.addAi(new Player(SWIPL_PARAMETERS_AI1));
-		tc.addAi(new Player(SWIPL_PARAMETERS_AI2));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 35, 100, 10, 2, 0, 0, 50));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 35, 100, 10, 2, 0, 0, 50));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 35, 100, 10, 2, 0, 0, 50));
+		//tc.addAi(new Player(SWIPL_PARAMETERS_AI2));
 		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1));
 		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1));
 		
@@ -26,7 +28,11 @@ public class LaskaKITester {
 		//Swipl beenden bei shutdown
 		//tournament statistik erweitern um parameter/file und timeout loses
 		//win/loss erkennen
-		
+		//Statistik:
+			//Durchschnittszeit
+			//Spielplan
+		//Pro Sieg 5 Punkte
+		//Nur 8 Spiele gleichzeitig
 	}
 
 }

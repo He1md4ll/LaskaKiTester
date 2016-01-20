@@ -20,6 +20,8 @@ public class MoveController {
 	private String color; 	// weiss = zuerst dran
 							// schwarz = danach dran
 	
+	private Player ai;
+	
 	/**
 	 * 
 	 * @param swiplLocation 
@@ -32,6 +34,7 @@ public class MoveController {
 	 */
 	public MoveController(String swiplLocation, Player ai, String color){
 		this.color = color;
+		this.ai = ai;
 		try {			
 			
 			if (ai.isStartedWithParas()){
@@ -46,6 +49,7 @@ public class MoveController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 	
 	/**
@@ -76,7 +80,7 @@ public class MoveController {
 	
 	public boolean isWin(){
 		if (reader.isWin()){
-			System.out.println("Player with color " + color + " wins!");
+			//System.out.println("Player with color " + color + " wins!");
 			return true;
 		} else {
 			return false;
@@ -85,7 +89,7 @@ public class MoveController {
 	
 	public boolean isLost(){
 		if (reader.isLost()){
-			System.out.println("Player with color " + color + " lost!");
+			//System.out.println("Player with color " + color + " lost!");
 			return true;
 		} else {
 			return false;
@@ -94,6 +98,10 @@ public class MoveController {
 	
 	public void stopGame(){
 		process.destroy();
+	}
+	
+	public Player getAi(){
+		return this.ai;
 	}
 	
 	

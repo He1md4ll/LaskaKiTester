@@ -5,7 +5,8 @@ import java.util.UUID;
 public class Player {
 	private String parameters;
 	private int score = 0;
-	private String id;
+	private String id ;
+	static int playerCounter = 0;
 	
 	private int sv;
 	private int gv;
@@ -18,12 +19,12 @@ public class Player {
 	
 	public Player(String parameters){
 		this.parameters = parameters;
-		this.id = UUID.randomUUID().toString();
+		this.id = String.valueOf(playerCounter++);
 	}
 	
 	public Player(String parameters, int sv, int gv, int jsv, int jjsv, int mv, int jv, int dv){
 		this.parameters = parameters;
-		this.id = UUID.randomUUID().toString();
+		this.id = String.valueOf(playerCounter++);
 		this.sv = sv;
 		this.gv = gv;
 		this.jsv = jsv;
@@ -51,7 +52,7 @@ public class Player {
 	}
 	
 	public void winScore(){
-		score+=10;
+		score+=5;
 	}
 	
 	public String getId(){

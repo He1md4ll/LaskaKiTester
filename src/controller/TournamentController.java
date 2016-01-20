@@ -1,6 +1,10 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
+
+import entities.Game;
 import entities.Player;
 import entities.PlayerList;
 
@@ -44,9 +48,11 @@ public class TournamentController {
 				e.printStackTrace();
 			}
 		}
+		System.out.println();
 		for (Map.Entry<String,Player> a:PlayerList.getPlayerList().entrySet()){
 			Player player = a.getValue();
-			System.out.println("Player " + a.getKey() + " scored " + player.getScore() + " points! " + "Parameters: " + player.getParameters() 
+			ArrayList<Game> games = PlayerList.getAllGamesForAi(player.getId());
+			System.out.println("Player " + a.getKey() + " scored " + player.getScore() + " points! " 
 				+ "SV: " + player.getSv()
 				+ " GV: " + player.getGv()
 				+ " JSV: " + player.getJsv()
@@ -54,6 +60,15 @@ public class TournamentController {
 				+ " MV: " + player.getMv()
 				+ " JV: " + player.getJv()
 				+ " DV: " + player.getDv());
+			for (Game game: games){
+				int calcTime;
+				if (game.getAi1().getId().equals(player.getId())){
+					calcTime = game.getCalcTimeAi1();
+				} else {
+					calcTime = game.getCalcTimeAi2();
+				}
+				System.out.println("\t first game time: " + calcTime + "ms.\t Winner was player " + game.getWinnerAi().getId());
+			}
 		}
 	}
 }

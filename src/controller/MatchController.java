@@ -16,7 +16,7 @@ public class MatchController extends Thread{
 	private Player ai1;
 	private Player ai2;
 	
-	private final int TIMEOUT = 300*1000;
+	private final int TIMEOUT = 300*10;
 	
 	public static int currentMatches = 0;
 	
@@ -32,15 +32,16 @@ public class MatchController extends Thread{
 	@Override
     public void run() {
 		Player winner = play();
-		Player winne1 = play();
-		if (winner.getId().equals(winne1.getId())){
-			System.out.println("Player with parameters " + winner.getParameters() + " won!");
-			PlayerList.addPoints(winner.getId());
+		PlayerList.addPoints(winner.getId());
+		Player winner1 = play();
+		PlayerList.addPoints(winner1.getId());
+		if (winner.getId().equals(winner1.getId())){
+			//System.out.println("Player with parameters " + winner.getParameters() + " won!");
 			currentMatches--;
 		} else {
 			Player winner3 = play();
-			System.out.println("Player with parameters " + winner3.getParameters() + " won!");
-			PlayerList.addPoints(winner.getId());
+			PlayerList.addPoints(winner3.getId());
+			//System.out.println("Player with parameters " + winner3.getParameters() + " won!");
 			currentMatches--;
 		}
 	}
@@ -69,29 +70,33 @@ public class MatchController extends Thread{
 				while (true){
 					ai1Action = mc1.getAiAction();
 					if (mc1.getTotalCalcTime() > TIMEOUT || mc2.isWin()){ // Timeout for AI -> lost
-						System.out.println("AI1 lost match");
+						System.out.println(mc2.getAi().getId() + " wins match");
+						PlayerList.saveMatch(ai1, ai2, mc2.getAi(), mc1.getTotalCalcTime(), mc2.getTotalCalcTime());
 						mc1.stopGame();
 						mc2.stopGame();
-						return ai2;
+						return mc2.getAi();
 					} else if (mc1.isWin()){ // Text outputs win
-						System.out.println("AI1 wins match");
+						System.out.println(mc1.getAi().getId() + " wins match");
+						PlayerList.saveMatch(ai1, ai2, mc1.getAi(), mc1.getTotalCalcTime(), mc2.getTotalCalcTime());
 						mc1.stopGame();
 						mc2.stopGame();
-						return ai1;
+						return mc1.getAi();
 					}
 					mc2.move(ai1Action);
 					System.out.println("------------------------------------------------");
 					ai2Action = mc2.getAiAction();
 					if (mc2.getTotalCalcTime() > TIMEOUT  || mc1.isWin()){ // Timeout for AI -> lost
-						System.out.println("AI2 lost match");
+						System.out.println(mc1.getAi().getId() + " wins match.\n");
+						PlayerList.saveMatch(ai1, ai2, mc1.getAi(), mc1.getTotalCalcTime(), mc2.getTotalCalcTime());
 						mc1.stopGame();
 						mc2.stopGame();
-						return ai1;
+						return mc1.getAi();
 					} else if (mc2.isWin()){ // Text output wins
-						System.out.println("AI2 wins match");
+						System.out.println(mc2.getAi().getId() + " wins match.\n");
+						PlayerList.saveMatch(ai1, ai2, mc2.getAi(), mc1.getTotalCalcTime(), mc2.getTotalCalcTime());
 						mc1.stopGame();
 						mc2.stopGame();
-						return ai2;
+						return mc2.getAi();
 					}
 					mc1.move(ai2Action);
 					System.out.println("------------------------------------------------");
