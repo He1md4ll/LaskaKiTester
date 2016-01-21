@@ -1,11 +1,9 @@
 package entities;
 
-import java.util.UUID;
-
 public class Player {
 	private String parameters;
 	private int score = 0;
-	private String id ;
+	private int id ;
 	static int playerCounter = 0;
 	
 	private int sv;
@@ -19,12 +17,12 @@ public class Player {
 	
 	public Player(String parameters){
 		this.parameters = parameters;
-		this.id = String.valueOf(playerCounter++);
+		this.id = playerCounter++;
 	}
 	
 	public Player(String parameters, int sv, int gv, int jsv, int jjsv, int mv, int jv, int dv){
 		this.parameters = parameters;
-		this.id = String.valueOf(playerCounter++);
+		this.id = playerCounter++;
 		this.sv = sv;
 		this.gv = gv;
 		this.jsv = jsv;
@@ -55,7 +53,7 @@ public class Player {
 		score+=5;
 	}
 	
-	public String getId(){
+	public int getId(){
 		return this.id;
 	}
 

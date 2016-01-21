@@ -1,113 +1,123 @@
 package controller;
 
+import java.util.Random;
+
+import com.google.common.eventbus.Subscribe;
+
 import entities.Player;
-import entities.PlayerList;
+import event.MatchEndedEvent;
+import event.NewDraftEvent;
+import event.NewTimeoutEvent;
+import event.NewWinEvent;
 
 /**
  * Class to one match bewteen two players.
- * Start match with run() command to start thread! (for parallel excecution)
- * @author anon6789 aka jelto
- *
  */
-public class MatchController extends Thread{
-
-	private String swiplLocation;
+public class MatchController {
+	public static String[] COLOR;
+	
+	private int matchId;
 	private Player ai1;
 	private Player ai2;
-	
-	private final int TIMEOUT = 300*1000;
-	
-	public static int runningMatches = 0;
-	
-	private int round = 0;
-	
 	private MoveController mc1;
 	private MoveController mc2;
 	
-	public MatchController(String swiplLocation, Player ai1, Player ai2){
-		this.swiplLocation = swiplLocation;
+	private int round = -1;
+	private int[] winner = new int[3];
+	
+	public MatchController(int matchId, Player ai1, Player ai2) {
+		GlobalEventBus.getEventBus().register(this);
+		this.matchId = matchId;
 		this.ai1 = ai1;
 		this.ai2 = ai2;
-	}
-	
-	@Override
-    public void run() {
-		
-		do{
-			try {
-				//Sleep till a slot is free for another match
-				Thread.sleep((long) (100 + Math.random() * 1000));
-			} catch (InterruptedException e) {}
-		}while(runningMatches >= LaskaKITester.MAX_MATCHES);
-		
-		//Start matches 
-		runningMatches ++;
-		Player winner = play();
-		PlayerList.addPoints(winner.getId());
-		Player winner1 = play();
-		PlayerList.addPoints(winner1.getId());
-		if (winner.getId().equals(winner1.getId())){
-			runningMatches--;
+		if (new Random().nextInt(1) == 0) {
+			COLOR = new String[]{"black", "white"};
 		} else {
-			Player winner3 = play();
-			PlayerList.addPoints(winner3.getId());
-			runningMatches--;
+			COLOR = new String[]{"white", "black"};
 		}
 	}
 	
-	/**
-	 * 
-	 * @return returns the String to winning AI
-	 */
-	public Player play(){
-		round ++;
-			if (round % 2 == 1){
-				mc1 = new MoveController(swiplLocation, ai1, "black");
-				mc2 = new MoveController(swiplLocation, ai2, "white");
-			} else {
-				mc1 = new MoveController(swiplLocation, ai2, "black");
-				mc2 = new MoveController(swiplLocation, ai1, "white");
-			}
-				
-				String ai1Action;
-				String ai2Action;
-				
-				
-				while (true){
-					ai1Action = mc1.getAiAction();
-					if (mc1.getTotalCalcTime() > TIMEOUT || mc2.isWin()){ // Timeout for AI -> lost
-						System.out.println(mc2.getAi().getId() + " wins match");
-						PlayerList.saveMatch(ai1, ai2, mc2.getAi(), mc1.getTotalCalcTime(), mc2.getTotalCalcTime());
-						stopGame();
-						return mc2.getAi();
-					} else if (mc1.isWin()){ // Text outputs win
-						System.out.println(mc1.getAi().getId() + " wins match");
-						PlayerList.saveMatch(ai1, ai2, mc1.getAi(), mc1.getTotalCalcTime(), mc2.getTotalCalcTime());
-						stopGame();
-						return mc1.getAi();
-					}
-					mc2.move(ai1Action);
-					System.out.println("------------------------------------------------");
-					ai2Action = mc2.getAiAction();
-					if (mc2.getTotalCalcTime() > TIMEOUT  || mc1.isWin()){ // Timeout for AI -> lost
-						System.out.println(mc1.getAi().getId() + " wins match.\n");
-						PlayerList.saveMatch(ai1, ai2, mc1.getAi(), mc1.getTotalCalcTime(), mc2.getTotalCalcTime());
-						stopGame();
-						return mc1.getAi();
-					} else if (mc2.isWin()){ // Text output wins
-						System.out.println(mc2.getAi().getId() + " wins match.\n");
-						PlayerList.saveMatch(ai1, ai2, mc2.getAi(), mc1.getTotalCalcTime(), mc2.getTotalCalcTime());
-						stopGame();
-						return mc2.getAi();
-					}
-					mc1.move(ai2Action);
-					System.out.println("------------------------------------------------");
-				}
+	@Subscribe
+	public void onAiWin(NewWinEvent event) {
+		final int matchId = event.getMatchID();
+		final int playerId = event.getPlayerId();
+		if (this.matchId == matchId) {
+			System.out.println("[Match " + matchId + ", Player " + playerId + "] Win.");
+			roundEnded(playerId);
+		}
 	}
 	
-	public void stopGame(){
+	@Subscribe
+	public void onAiTimeout(NewTimeoutEvent event) {
+		final int matchId = event.getMatchID();
+		final int playerId = event.getPlayerId();
+		if (this.matchId == matchId) {
+			System.out.println("[Match " + matchId + ", Player " + playerId + "] Lose due to timeout.");
+			if (playerId == ai1.getId()) {
+				roundEnded(ai2.getId());
+			} else {
+				roundEnded(ai1.getId());
+			}
+		}
+	}
+	
+	@Subscribe
+	public void onAiDraft(NewDraftEvent event) {
+		final int matchId = event.getMatchID();
+		final int playerId = event.getPlayerId();
+		if (this.matchId == matchId) {
+			final String aiAction = event.getAiAction();
+			System.out.println("[Match " + matchId + ", Player " + playerId + "] Move to " + aiAction + " in " + event.getAiTime() + "ms.");
+			if (playerId == ai1.getId()) {
+				mc2.move(aiAction);
+			} else {
+				mc1.move(aiAction);
+			}
+		}
+	}
+	
+	private void roundEnded(int aiId) {
+		winner[round] = aiId;
+		stopGame();
+		playNextRound();
+	}
+	
+	private void stopGame(){
 		mc1.stopGame();
 		mc2.stopGame();
 	}
 	
+	private void playNextRound() {
+		switch(round) {
+			case 0 :
+				play();
+				break;
+			case 1:
+				if(winner[0] != winner[1]) {
+					play();
+					break;
+				}
+			case 2: 
+				GlobalEventBus.getEventBus().post(new MatchEndedEvent());
+				break;
+		}
+	}
+	
+	public void play(){
+		round++;
+		startNewMatch();
+	}
+	
+	private void startNewMatch() {
+		switch(round) {
+			case 0:
+			case 2:
+				mc1 = new MoveController(matchId, ai1, COLOR[0]);
+				mc2 = new MoveController(matchId, ai2, COLOR[1]);
+				break;
+			case 1:
+				mc1 = new MoveController(matchId, ai1, COLOR[1]);
+				mc2 = new MoveController(matchId, ai2, COLOR[0]);
+		}
+	}
 }
