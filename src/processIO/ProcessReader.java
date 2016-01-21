@@ -42,7 +42,7 @@ public class ProcessReader extends Thread {
         try {
         	String line = reader.readLine();
             while (line != null && !stop) {
-            	//System.out.println(line);
+            	//if(playerId == 0) System.out.println(line);
                 if (line.contains(color.toLowerCase() + KI_ACTION_STRING)){
                 	aiAction = Optional.fromNullable(line.substring(line.length()-4));
                 	if (aiAction.isPresent() && !aiAction.get().matches("\\w\\d\\w\\d")) {
@@ -54,8 +54,6 @@ public class ProcessReader extends Thread {
                 	if (line.toLowerCase().contains(color + " " + KI_WIN_STRING)){
                 		win();
                 	}
-                } else if (line.contains("Falsche Eingabe")){
-                	throw new RuntimeException("Falsche Eingabe");
                 }
                 checkIfDraftComplete();
                 line = reader.readLine();

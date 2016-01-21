@@ -11,7 +11,7 @@ import event.NewTimeoutEvent;
 import event.NewWinEvent;
 
 /**
- * Class to one match bewteen two players.
+ * Class to one match between two players.
  */
 public class MatchController {
 	public static String[] COLOR;
