@@ -44,6 +44,7 @@ public class TournamentController {
 	}
 	
 	private void startFirstMatches() {
+		System.out.println("Tournament consists of " + matches.size() + " matches.");
 		for(; matchCounter < LaskaKITester.MAX_MATCHES; matchCounter++) {
 			if(matches.size() > matchCounter) {
 				matches.get(matchCounter).play();

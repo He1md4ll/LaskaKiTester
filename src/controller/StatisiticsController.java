@@ -8,6 +8,7 @@ import com.google.common.eventbus.Subscribe;
 
 import entities.Player;
 import entities.PlayerList;
+import event.MatchErrorEvent;
 import event.NewTimeoutEvent;
 import event.NewWinEvent;
 
@@ -15,6 +16,7 @@ public class StatisiticsController {
 	
 	private HashMap<Integer, Integer> playerWinner = new LinkedHashMap<>();
 	private HashMap<Integer, Integer> playerTimeout = new LinkedHashMap<>();
+	private HashMap<Integer, Integer> playerError = new LinkedHashMap<>();
 	
 	public StatisiticsController() {
 		GlobalEventBus.getEventBus().register(this);
@@ -42,6 +44,17 @@ public class StatisiticsController {
 		}
 	}
 	
+	@Subscribe
+	public void onMatchError(MatchErrorEvent event) {
+		final int playerId = event.getPlayerId();
+		Integer result = playerError.get(playerId);
+		if(result == null) {
+			playerError.put(playerId, 1);
+		} else {
+			playerError.put(playerId, result++);
+		}
+	}
+	
 	public void printStatistics() {
 		System.out.println();
 		for (Map.Entry<Integer,Player> a:PlayerList.getPlayerList().entrySet()){
@@ -53,17 +66,23 @@ public class StatisiticsController {
 					+ " MV: " + a.getValue().getMv()
 					+ " JV: " + a.getValue().getJv()
 					+ " DV: " + a.getValue().getDv());
-			Integer wins = playerWinner.get(a.getKey());
+			final Integer wins = playerWinner.get(a.getKey());
 			if(wins == null) {
 				System.out.println("Player " + a.getKey() + " did not win.");
 			} else {
 				System.out.println("Player " + a.getKey() + " won " + wins + " times.");
 			}
-			Integer timeouts = playerTimeout.get(a.getKey());
+			final Integer timeouts = playerTimeout.get(a.getKey());
 			if(timeouts == null) {
 				System.out.println("Player " + a.getKey() + " had no timeouts.");
 			} else {
 				System.out.println("Player " + a.getKey() + " had " + timeouts + " timeouts.");
+			}
+			final Integer errors = playerError.get(a.getKey());
+			if(errors == null) {
+				System.out.println("Player " + a.getKey() + " encountered no error.");
+			} else {
+				System.out.println("Player " + a.getKey() + " encountered " + errors + " errors. Potential error in AI!");
 			}
 			System.out.println();
 		}

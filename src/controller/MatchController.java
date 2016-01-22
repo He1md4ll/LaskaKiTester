@@ -6,6 +6,7 @@ import com.google.common.eventbus.Subscribe;
 
 import entities.Player;
 import event.MatchEndedEvent;
+import event.MatchErrorEvent;
 import event.NewDraftEvent;
 import event.NewTimeoutEvent;
 import event.NewWinEvent;
@@ -73,6 +74,16 @@ public class MatchController {
 			} else {
 				mc1.move(aiAction);
 			}
+		}
+	}
+	
+	@Subscribe
+	public void onMatchError(MatchErrorEvent event) {
+		final int matchId = event.getMatchID();
+		final int playerId = event.getPlayerId();
+		if (this.matchId == matchId) {
+			System.out.println("[Match " + matchId + ", Player " + playerId + "] Error during game.");
+			roundEnded(playerId);
 		}
 	}
 	

@@ -12,9 +12,18 @@ public class LaskaKITester {
 	public static void main(String[] args) {
 		TournamentController tc = new TournamentController();
 		
-		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 37, 103, 13, 13, 0, 0, 77));
-		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1, -1, -1, 0, 0, 0, 0, 0));
-		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 37, 103, 21, 13, 0, 0, 77));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 37, 103, 13, 3, 0, 0, 77));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 37, 131, 13, 3, 0, 0, 77));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 47, 103, 13, 3, 0, 0, 77));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 61, 103, 13, 3, 0, 0, 77));
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 43, 131, 13, 3, 0, 0, 77));
+		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 59, 131, 13, 3, 0, 0, 77));
+		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 61, 131, 13, 3, 0, 0, 77));
+		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 61, 163, 13, 3, 0, 0, 77));
+		
+		// Test 21.01.2016
+		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 37, 103, 13, 13, 0, 0, 77));
+		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 37, 103, 21, 13, 0, 0, 77));
 		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 37, 103, 21, 21, 0, 0, 77));
 		//tc.addAi(new Player(SWIPL_PARAMETERS_AI1, 37, 103, 31, 3, 0, 0, 77));
 		

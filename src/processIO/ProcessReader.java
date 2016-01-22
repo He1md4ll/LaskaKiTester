@@ -7,6 +7,7 @@ import com.google.common.base.Optional;
 
 import controller.GlobalEventBus;
 import controller.LaskaKITester;
+import event.MatchErrorEvent;
 import event.NewDraftEvent;
 import event.NewTimeoutEvent;
 import event.NewWinEvent;
@@ -21,13 +22,15 @@ public class ProcessReader extends Thread {
 	private final String KI_ACTION_STRING = " am Zug:"; // String to look for when parsing ki Action
 	private final String KI_CALC_TIME_STRING = "Zeit in MilliSekunden:";
 	private final String KI_WIN_STRING = "wins";
+	private final String KI_ERROR_STRING = "Falsche Eingabe";
 	
 	private int playerId;
 	private int matchId;
 	private Optional<String> aiAction = Optional.absent();
 	private Optional<Integer> totalCalcTime = Optional.absent();
 	private String color;
-	private boolean stop = false;;
+	private boolean stop = false;
+	private int lineCounter = 0;
 
     private BufferedReader reader = null;
     public ProcessReader(Process process, int matchId, int playerId, String color) {
@@ -43,6 +46,7 @@ public class ProcessReader extends Thread {
         	String line = reader.readLine();
             while (line != null && !stop) {
             	//if(playerId == 0) System.out.println(line);
+            	lineCounter++;
                 if (line.contains(color.toLowerCase() + KI_ACTION_STRING)){
                 	aiAction = Optional.fromNullable(line.substring(line.length()-4));
                 	if (aiAction.isPresent() && !aiAction.get().matches("\\w\\d\\w\\d")) {
@@ -54,18 +58,29 @@ public class ProcessReader extends Thread {
                 	if (line.toLowerCase().contains(color + " " + KI_WIN_STRING)){
                 		win();
                 	}
+                } else if (line.contains(KI_ERROR_STRING)){
+                	GlobalEventBus.getEventBus().post(new MatchErrorEvent(matchId, playerId));
                 }
                 checkIfDraftComplete();
+                checkForError();
                 line = reader.readLine();
             }
             stopReader();
         }
         catch(IOException exception) {
             System.out.println("!!Error: " + exception.getMessage());
+            exception.printStackTrace();
         }
     }
     
-    public void setStop(boolean stop) {
+    private void checkForError() {
+		if(lineCounter > 200) {
+			GlobalEventBus.getEventBus().post(new MatchErrorEvent(matchId, playerId));
+		}
+		
+	}
+
+	public void setStop(boolean stop) {
     	this.stop = stop;
     }
     
@@ -78,6 +93,7 @@ public class ProcessReader extends Thread {
     		}
     		aiAction = Optional.absent();
     		totalCalcTime = Optional.absent();
+    		lineCounter = 0;
     	}
     }
     
