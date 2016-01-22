@@ -1,7 +1,11 @@
 package processIO;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.google.common.base.Optional;
 
@@ -32,8 +36,16 @@ public class ProcessReader extends Thread {
 	private boolean stop = false;
 	private int lineCounter = 0;
 
-    private BufferedReader reader = null;
+    private BufferedReader reader;
+    private PrintWriter writer;
+    
     public ProcessReader(Process process, int matchId, int playerId, String color) {
+    	if("black".equals(color) && LaskaKITester.LOG_MATCHES) {
+    		try {
+    			final String dateString = new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss").format(new Date());
+    			this.writer = new PrintWriter("logs/match" + matchId + "_" + dateString + ".log");
+    		} catch (FileNotFoundException ignored){ignored.printStackTrace();}
+    	}
         this.reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         this.matchId = matchId;
         this.playerId = playerId;
@@ -47,6 +59,9 @@ public class ProcessReader extends Thread {
             while (line != null && !stop) {
             	//if(playerId == 0) System.out.println(line);
             	lineCounter++;
+            	if(writer != null) {
+            		writer.println(line);
+            	}
                 if (line.contains(color.toLowerCase() + KI_ACTION_STRING)){
                 	aiAction = Optional.fromNullable(line.substring(line.length()-4));
                 	if (aiAction.isPresent() && !aiAction.get().matches("\\w\\d\\w\\d")) {
@@ -104,6 +119,10 @@ public class ProcessReader extends Thread {
     private void stopReader() {
     	try {
 			reader.close();
+			if(writer != null) {
+				writer.flush();
+				writer.close();
+			}
 		} catch (IOException ignored) {}
     	this.interrupt();
     }

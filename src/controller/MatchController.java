@@ -24,7 +24,7 @@ public class MatchController {
 	private MoveController mc2;
 	
 	private int round = -1;
-	private int[] winner = new int[3];
+	private int[] winner = new int[]{-1,-1,-1};
 	
 	public MatchController(int matchId, Player ai1, Player ai2) {
 		GlobalEventBus.getEventBus().register(this);
@@ -109,7 +109,7 @@ public class MatchController {
 					break;
 				}
 			case 2: 
-				GlobalEventBus.getEventBus().post(new MatchEndedEvent());
+				GlobalEventBus.getEventBus().post(new MatchEndedEvent(matchId, winner));
 				break;
 		}
 	}
