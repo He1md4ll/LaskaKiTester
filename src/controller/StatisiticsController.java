@@ -14,6 +14,7 @@ import event.MatchEndedEvent;
 import event.MatchErrorEvent;
 import event.NewTimeoutEvent;
 import event.NewWinEvent;
+import event.ReverseWinEvent;
 
 public class StatisiticsController {
 	
@@ -36,6 +37,15 @@ public class StatisiticsController {
 			playerWinner.put(playerId, 1);
 		} else {
 			playerWinner.put(playerId, ++result);
+		}
+	}
+	
+	@Subscribe
+	public void onReverseWin(ReverseWinEvent event) {
+		final int playerId = event.getPlayerId();
+		Integer result = playerWinner.get(playerId);
+		if(result != null) {
+			playerWinner.put(playerId, --result);
 		}
 	}
 	

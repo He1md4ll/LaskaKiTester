@@ -1,6 +1,8 @@
 package controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 import com.google.common.eventbus.Subscribe;
@@ -15,6 +17,8 @@ import event.MatchEndedEvent;
  * Tournament is started with startTournament()
  */
 public class TournamentController {
+	
+	public static String FOLDER_PATH = "";
 	
 	private StatisiticsController stats;
 	private final ArrayList<MatchController> matches = new ArrayList<>();
@@ -40,7 +44,13 @@ public class TournamentController {
 			}
 			PlayerList.playerDoneAllMachtes(a.getKey());	
 		}
+		createFolder();
 		startFirstMatches();
+	}
+	
+	private void createFolder() {
+		final String dateString = new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss").format(new Date());
+		FOLDER_PATH = dateString + " Tournament (" + matches.size() + " matches)/";
 	}
 	
 	private void startFirstMatches() {

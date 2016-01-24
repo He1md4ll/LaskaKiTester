@@ -1,5 +1,6 @@
 package processIO;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +12,7 @@ import com.google.common.base.Optional;
 
 import controller.GlobalEventBus;
 import controller.LaskaKITester;
+import controller.TournamentController;
 import event.MatchErrorEvent;
 import event.NewDraftEvent;
 import event.NewTimeoutEvent;
@@ -43,7 +45,8 @@ public class ProcessReader extends Thread {
     	if("black".equals(color) && LaskaKITester.LOG_MATCHES) {
     		try {
     			final String dateString = new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss").format(new Date());
-    			this.writer = new PrintWriter("logs/match" + matchId + "_" + dateString + ".log");
+    			new File("logs/" + TournamentController.FOLDER_PATH + "Match " + matchId + "/").mkdirs();
+    			this.writer = new PrintWriter("logs/" + TournamentController.FOLDER_PATH + "Match " + matchId + "/" + dateString +  "_player" + playerId + ".log");
     		} catch (FileNotFoundException ignored){ignored.printStackTrace();}
     	}
         this.reader = new BufferedReader(new InputStreamReader(process.getInputStream()));

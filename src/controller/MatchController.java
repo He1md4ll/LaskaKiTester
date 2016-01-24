@@ -10,6 +10,7 @@ import event.MatchErrorEvent;
 import event.NewDraftEvent;
 import event.NewTimeoutEvent;
 import event.NewWinEvent;
+import event.ReverseWinEvent;
 
 /**
  * Class to one match between two players.
@@ -55,9 +56,9 @@ public class MatchController {
 		if (this.matchId == matchId) {
 			System.out.println("[Match " + matchId + ", Player " + playerId + "] Lose due to timeout.");
 			if (playerId == ai1.getId()) {
-				roundEnded(ai2.getId());
+				GlobalEventBus.getEventBus().post(new NewWinEvent(matchId, ai2.getId()));
 			} else {
-				roundEnded(ai1.getId());
+				GlobalEventBus.getEventBus().post(new NewWinEvent(matchId, playerId));
 			}
 		}
 	}
@@ -83,8 +84,20 @@ public class MatchController {
 		final int playerId = event.getPlayerId();
 		if (this.matchId == matchId) {
 			System.out.println("[Match " + matchId + ", Player " + playerId + "] Error during game.");
-			roundEnded(playerId);
+			stopGame();
+			reverseWins(matchId);
+			round = 2;
+			playNextRound();
 		}
+	}
+	
+	private void reverseWins(int matchId) {
+		for(int playerId : winner) {
+			if(playerId != -1) {
+				GlobalEventBus.getEventBus().post(new ReverseWinEvent(matchId, playerId));
+			}
+		}
+		winner = new int[]{-1,-1,-1};
 	}
 	
 	private void roundEnded(int aiId) {
