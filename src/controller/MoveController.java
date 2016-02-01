@@ -58,7 +58,10 @@ public class MoveController {
 	}
 	
 	public void stopGame(){
-		reader.setStop(true);
-		process.destroy();
-	}	
+        reader.setStop(true);
+        try {
+            reader.join(100);
+        } catch (InterruptedException ignored) {}
+        process.destroy();
+    }	
 }

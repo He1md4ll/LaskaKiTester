@@ -83,12 +83,12 @@ public class ProcessReader extends Thread {
                 checkForError();
                 line = reader.readLine();
             }
-            stopReader();
         }
         catch(IOException exception) {
             System.out.println("!!Error: " + exception.getMessage());
-            exception.printStackTrace();
+            //exception.printStackTrace();
         }
+        stopReader();
     }
     
     private void checkForError() {
