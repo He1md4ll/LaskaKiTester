@@ -33,6 +33,22 @@ public class TournamentController {
 		PlayerList.addAi(ai);
 	}
 	
+	public void startTournament(ArrayList<Integer> players){
+		GlobalEventBus.getEventBus().register(this);
+		for (Integer playerID : players){
+			Player a = PlayerList.getPlayerList().get(playerID);			
+			for (Map.Entry<Integer,Player> b:PlayerList.getPlayerList().entrySet()){
+				if (!playerID.equals(b.getKey()) && !PlayerList.hasPlayerDoneAllMatches(b.getKey()) && !players.contains(b.getKey())){
+					MatchController mc = new MatchController(matches.size(), a, b.getValue());
+					matches.add(mc);
+				}
+			}
+			PlayerList.playerDoneAllMachtes(playerID);	
+		}
+		createFolder();
+		startFirstMatches();
+	}
+	
 	public void startTournament(){
 		GlobalEventBus.getEventBus().register(this);
 		for (Map.Entry<Integer,Player> a:PlayerList.getPlayerList().entrySet()){
