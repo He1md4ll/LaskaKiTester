@@ -23,7 +23,7 @@ public class ProcessWriter {
 	 */
 	public void write(String gameAction){
 		try {
-			writer.write(gameAction+".\n");
+			writer.write(gameAction+"." + System.lineSeparator());
 			writer.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
