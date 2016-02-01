@@ -21,14 +21,28 @@ public class MoveController {
 			
 			if (ai.isStartedWithParas()){
 				if(ai.getJjov() == 0 && ai.getJov() == 0){
-					process = Runtime.getRuntime().exec(LaskaKITester.SWIPL_LOCATION + ai.getParameters() + " -t start(" + color + "," + ai.getSv() + "," + ai.getGv() + "," + ai.getJsv() + "," + ai.getJjsv() + "," + ai.getMv() + "," + ai.getJv() + "," + ai.getDv() +")");		
+					
+					String[] cmd = {
+							"/bin/sh",
+							"-c",
+							LaskaKITester.SWIPL_LOCATION + ai.getParameters() + " -t 'start(" + color + "," + ai.getSv() + "," + ai.getGv() + "," + ai.getJsv() + "," + ai.getJjsv() + "," + ai.getMv() + "," + ai.getJv() + "," + ai.getDv() +")'"
+					};
+					
+					process = Runtime.getRuntime().exec(cmd);		
 				} 
 				else {
-					process = Runtime.getRuntime().exec(LaskaKITester.SWIPL_LOCATION + ai.getParameters() + " -t start(" + color + "," + ai.getSv() + "," + ai.getGv() + "," + ai.getJsv() + "," + ai.getJjsv() + "," + ai.getJov() + "," + ai.getJjov() + "," + ai.getMv() + "," + ai.getJv() + "," + ai.getDv() +")");
+					
+					String[] cmd = {
+						"/bin/sh",
+						"-c",
+						LaskaKITester.SWIPL_LOCATION + ai.getParameters() + " -t 'start(" + color + "," + ai.getSv() + "," + ai.getGv() + "," + ai.getJsv() + "," + ai.getJjsv() + "," + ai.getJov() + "," + ai.getJjov() + "," + ai.getMv() + "," + ai.getJv() + "," + ai.getDv() +")'"
+					};
+					
+					process = Runtime.getRuntime().exec(cmd);
 				}
-				}
+			}
 			else {
-				process = Runtime.getRuntime().exec(LaskaKITester.SWIPL_LOCATION + ai.getParameters() + " -t start(" + color + ")");
+				process = Runtime.getRuntime().exec(LaskaKITester.SWIPL_LOCATION + ai.getParameters() + " -t 'start(" + color + ")'");
 			}
 			reader = new ProcessReader(process, matchId, ai.getId(), color);
 			writer = new ProcessWriter(process);

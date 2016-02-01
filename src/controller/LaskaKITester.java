@@ -6,11 +6,11 @@ import entities.Player;
 
 public class LaskaKITester {
 
-	public final static String SWIPL_LOCATION = "C:\\Programme\\swipl\\bin\\swipl.exe";
-	public final static String SWIPL_PARAMETERS_AI_Main = " -s D:\\Source\\Projekte\\LaskaKI\\2015\\main.pl";
-	public final static String SWIPL_PARAMETERS_AI_Main_LZ = " -s D:\\Source\\Projekte\\LaskaKI\\2015_Main_LZ\\main.pl";
-	public final static String SWIPL_PARAMETERS_AI_Florian_LZ = " -s D:\\Source\\Projekte\\LaskaKI\\2015_FlorianLZ\\main.pl";
-	public final static int MAX_MATCHES = 1; 		// Number of simultaneous matches (1 Match --> 2 Players --> 2 Threads)
+	public final static String SWIPL_LOCATION = "/usr/lib/swi-prolog/bin/amd64/swipl";
+	public final static String SWIPL_PARAMETERS_AI_Main = " -s /home/sir_jelto/LaskaKI/2015/main.pl";
+	public final static String SWIPL_PARAMETERS_AI_Main_LZ = " -s /home/sir_jelto/LaskaKI/2015_Main_LZ/main.pl";
+	public final static String SWIPL_PARAMETERS_AI_Florian_LZ = " -s /home/sir_jelto/LaskaKI/2015_FlorianLZ/main.pl";
+	public final static int MAX_MATCHES = 24; 		// Number of simultaneous matches (1 Match --> 2 Players --> 2 Threads)
 	public static final int TIMEOUT = 5 * 60 * 1000;		// Timeout in ms
 	public static final boolean LOG_MATCHES = Boolean.TRUE;		
 	
