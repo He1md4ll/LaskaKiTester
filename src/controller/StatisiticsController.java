@@ -57,7 +57,7 @@ public class StatisiticsController {
 		if(result == null) {
 			playerTimeout.put(playerId, 1);
 		} else {
-			playerTimeout.put(playerId, result++);
+			playerTimeout.put(playerId, ++result);
 		}
 		List<Integer> result2 = matchPlayerTimeout.get(matchId);
 		if(result2 == null) {

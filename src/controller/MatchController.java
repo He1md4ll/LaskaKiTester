@@ -58,7 +58,7 @@ public class MatchController {
 			if (playerId == ai1.getId()) {
 				GlobalEventBus.getEventBus().post(new NewWinEvent(matchId, ai2.getId()));
 			} else {
-				GlobalEventBus.getEventBus().post(new NewWinEvent(matchId, playerId));
+				GlobalEventBus.getEventBus().post(new NewWinEvent(matchId, ai1.getId()));
 			}
 		}
 	}
