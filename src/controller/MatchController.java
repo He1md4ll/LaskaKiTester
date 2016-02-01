@@ -117,10 +117,10 @@ public class MatchController {
 				play();
 				break;
 			case 1:
-				if(winner[0] != winner[1]) {
+				/*if(winner[0] != winner[1]) {
 					play();
 					break;
-				}
+				}*/
 			case 2: 
 				GlobalEventBus.getEventBus().post(new MatchEndedEvent(matchId, winner));
 				break;
