@@ -17,47 +17,49 @@ public class LaskaKITester {
 	public static void main(String[] args) {
 		TournamentController tc = new TournamentController();		
 
-		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 20, 65, 0, 0, 0, 5, 10));	 	//Player0
-		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 20, 65, 0, 0, 0, 10, 10)); 	//Player1
-		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 20, 65, 0, 0, 0, 5, 0)); 		//Player2
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 20, 50, 0, 0, 3, 5, 0));	 	//Player0
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 20, 65, 10, 0, 3, 7, 10)); 	//Player1
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 30, 100, 10, 5, 0, 20, 50)); 	//Player2	//FloriansBeste
 		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 1, 3, 0, 0, 0, 0, 0)); 		//Player3 	//DummeKI
 		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 30, 100, 10, 5, 0, 0, 0));	//Player4	//Simple1
 		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 30, 100, 0, 0, 0, 10, 0)); 	//Player5	//Simple2
 		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 30, 100, 10, 10, 0, 0, 50));	//Player6	//JeltoKI
-		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 70, 170, 20, 10, 0, 5, 140));	//Player7	//MartinsBeste
+		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 70, 220, 10, 10, 0, 5, 80));	//Player7	//MartinsBeste
 		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 20, 65, 0, 0, 3, 3, 0));		//Player8   //2014
 		tc.addAi(new Player(SWIPL_PARAMETERS_AI_Main, 30, 100, 0, 0, 5, 5, 0));		//Player9	//2010
 
-		Player player10 = new Player(SWIPL_PARAMETERS_AI_Main, 31, 101, 11, 7, 0, 19, 53);		
-		Player player11 = new Player(SWIPL_PARAMETERS_AI_Main, 30, 100, 10, 5, 0, 20, 50);				
-		Player player12 = new Player(SWIPL_PARAMETERS_AI_Main, 31, 101, 11, 7, 0, 0, 0);						
-		Player player13 = new Player(SWIPL_PARAMETERS_AI_Main, 70, 170, 20, 10, 0, 5, 140);		
-		Player player14 = new Player(SWIPL_PARAMETERS_AI_Main, 70, 170, 20, 10, 0, 25, 140);			
-		Player player15 = new Player(SWIPL_PARAMETERS_AI_Main, 70, 170, 20, 10, 0, 50, 140);			
-		Player player16 = new Player(SWIPL_PARAMETERS_AI_Main, 70, 170, 20, 10, 0, 50, 140);		
+		Player player10 = new Player(SWIPL_PARAMETERS_AI_Main, 30, 100, 10, 5, 0, 20, 50);	
+		Player player11 = new Player(SWIPL_PARAMETERS_AI_Main, 30, 55, 10, 5, 0, 5, 50);				
+		Player player12 = new Player(SWIPL_PARAMETERS_AI_Main, 70, 220, 10, 10, 0, 5, 80);						
+		Player player13 = new Player(SWIPL_PARAMETERS_AI_Main, 70, 220, 10, 10, 0, 5, 20);		
+		Player player14 = new Player(SWIPL_PARAMETERS_AI_Main, 20, 40, 10, 10, 0, 10, 20);			
+		Player player15 = new Player(SWIPL_PARAMETERS_AI_Main, 30, 70, 10, 10, 0, 10, 10);			
+		Player player16 = new Player(SWIPL_PARAMETERS_AI_Main, 25, 55, 7, 2, 0, 9,12);		
 		Player player17 = new Player(SWIPL_PARAMETERS_AI_Main, 70, 350, 35, 7, 0, 70, 210);		
-		Player player18 = new Player(SWIPL_PARAMETERS_AI_Main, 70, 350, 35, 7, 0, 70, 210);		
-		Player player19 = new Player(SWIPL_PARAMETERS_AI_Main, 70, 350, 35, 7, 0, 70, 210);		
-		Player player20 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 70, 350, 35, 7, 0, 70, 210);		
-		Player player21 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 70, 350, 35, 7, 0, 70, 210);			
-		Player player22 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 70, 350, 35, 7, 0, 70, 210);		
-		Player player23 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 70, 350, 35, 7, 0, 70, 210);			
-		Player player24 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 70, 350, 35, 7, 0, 70, 210);		
-		Player player25 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 70, 350, 35, 7, 0, 70, 210);		
-		Player player26 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 70, 350, 35, 7, 0, 70, 210);		
+		Player player18 = new Player(SWIPL_PARAMETERS_AI_Main, 61, 163, 13, 3, 0, 0, 77);		
+		Player player19 = new Player(SWIPL_PARAMETERS_AI_Main, 35, 95, 20, 7, 0, 40, 20 );		
+		
+		Player player20 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 30, 100, 10, 5, 0, 20, 50);		
+		Player player21 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 30, 55, 10, 5, 0, 5, 50);			
+		Player player22 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 70, 220, 10, 10, 0, 5, 80);		
+		Player player23 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 70, 220, 10, 10, 0, 5, 20);			
+		Player player24 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 20, 40, 10, 10, 0, 10, 20);		
+		Player player25 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 30, 70, 10, 10, 0, 10, 10);		
+		Player player26 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 25, 55, 7, 2, 0, 9,12);		
 		Player player27 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 70, 350, 35, 7, 0, 70, 210);			
-		Player player28 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 70, 350, 35, 7, 0, 70, 210);		
-		Player player29 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 70, 350, 35, 7, 0, 70, 210);	
-		Player player30 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 350, 35, 7, 0, 70, 210);		
-		Player player31 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 350, 35, 7, 0, 70, 210);			
-		Player player32 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 350, 35, 7, 0, 70, 210);		
-		Player player33 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 350, 35, 7, 0, 70, 210);			
-		Player player34 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 350, 35, 7, 0, 70, 210);		
-		Player player35 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 350, 35, 7, 0, 70, 210);		
-		Player player36 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 350, 35, 7, 0, 70, 210);		
-		Player player37 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 350, 35, 7, 0, 70, 210);			
-		Player player38 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 350, 35, 7, 0, 70, 210);		
-		Player player39 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 350, 35, 7, 0, 70, 210);					
+		Player player28 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 61, 163, 13, 3, 0, 0, 77);		
+		Player player29 = new Player(SWIPL_PARAMETERS_AI_Main_LZ, 35, 95, 20, 7, 0, 40, 20);	
+		
+		Player player30 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 30, 100, 10, 5, 0, 20, 8);		
+		Player player31 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 30, 55, 10, 5, 0, 5, 8);			
+		Player player32 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 220, 10, 10, 0, 5, 10);		
+		Player player33 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 220, 10, 10, 0, 5, 2);			
+		Player player34 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 20, 40, 10, 10, 0, 10, 10);		
+		Player player35 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 30, 70, 10, 10, 0, 10, 1);		
+		Player player36 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 25, 55, 7, 2, 0, 9, 3);		
+		Player player37 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 70, 350, 35, 7, 0, 70, 8);			
+		Player player38 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 61, 163, 13, 3, 0, 0, 4);		
+		Player player39 = new Player(SWIPL_PARAMETERS_AI_Florian_LZ, 35, 95, 20, 7, 0, 40, 20);					
 				
 		tc.addAi(player10); 
 		tc.addAi(player11); 
