@@ -2,7 +2,6 @@ package processIO;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.logging.Logger;
 
 /** 
  * Class for writing data into process
@@ -11,9 +10,6 @@ import java.util.logging.Logger;
 public class ProcessWriter {
 
 	private BufferedWriter writer;
-	
-	private static final Logger log = Logger.getLogger( ProcessWriter.class.getName() );
-
 	
 	public ProcessWriter(Process process){
 		this.writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
@@ -27,11 +23,9 @@ public class ProcessWriter {
 	 */
 	public void write(String gameAction){
 		try {
-			writer.write(gameAction+".\n");
+			writer.write(gameAction+"." + System.lineSeparator());
 			writer.flush();
-			//log.info("Wrote action " + gameAction + " to other process");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

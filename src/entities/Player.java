@@ -1,11 +1,9 @@
 package entities;
 
-import java.util.UUID;
-
 public class Player {
 	private String parameters;
 	private int score = 0;
-	private String id ;
+	private int id ;
 	static int playerCounter = 0;
 	
 	private int sv;
@@ -15,16 +13,18 @@ public class Player {
 	private int mv;
 	private int jv;
 	private int dv;
+	private int jov;
+	private int jjov;
 	private boolean startedWithParas = false;
 	
 	public Player(String parameters){
 		this.parameters = parameters;
-		this.id = String.valueOf(playerCounter++);
+		this.id = playerCounter++;
 	}
 	
 	public Player(String parameters, int sv, int gv, int jsv, int jjsv, int mv, int jv, int dv){
 		this.parameters = parameters;
-		this.id = String.valueOf(playerCounter++);
+		this.id = playerCounter++;
 		this.sv = sv;
 		this.gv = gv;
 		this.jsv = jsv;
@@ -32,6 +32,21 @@ public class Player {
 		this.mv = mv;
 		this.jv = jv;
 		this.dv = dv;
+		this.startedWithParas = true;
+	}
+	
+	public Player(String parameters, int sv, int gv, int jsv, int jjsv,int jov, int jjov, int mv, int jv, int dv){
+		this.parameters = parameters;
+		this.id = playerCounter++;
+		this.sv = sv;
+		this.gv = gv;
+		this.jsv = jsv;
+		this.jjsv = jjsv;
+		this.mv = mv;
+		this.jv = jv;
+		this.dv = dv;
+		this.jov = jov;
+		this.jjov = jjov;
 		this.startedWithParas = true;
 	}
 	
@@ -55,7 +70,7 @@ public class Player {
 		score+=5;
 	}
 	
-	public String getId(){
+	public int getId(){
 		return this.id;
 	}
 
@@ -93,6 +108,14 @@ public class Player {
 
 	public int getDv() {
 		return dv;
+	}
+	
+	public int getJov() {
+		return jov;
+	}
+	
+	public int getJjov() {
+		return jjov;
 	}
 
 	public boolean isStartedWithParas() {
